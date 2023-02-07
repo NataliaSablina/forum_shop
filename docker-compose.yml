@@ -1,0 +1,21 @@
+version: "3.10"
+
+services:
+  shop:
+    build: .
+    entrypoint: /usr/src/shop/entrypoint.sh
+    ports:
+      - "8001:8001"
+    depends_on:
+      - shopdb
+  shopdb:
+    image: postgres
+    volumes:
+      - dbshopdata:/var/lib/psql
+    env_file:
+      - .env
+    ports:
+      - "5434:5432"
+
+volumes:
+  dbshopdata:
